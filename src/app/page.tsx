@@ -5,7 +5,6 @@ import { useCallback, useEffect, useState } from "react";
 import { initializeModel, processImage, processImages } from "../lib/modelSegmentation";
 import { useDropzone } from "react-dropzone";
 import Link from "next/link";
-import { Images } from "./Images";
 
 interface LoadingError {
   message: string;
@@ -129,7 +128,9 @@ export default function Home() {
             <h1> Number of Images{images.length}</h1>
           </div>
               {images && images.map((image)=>(
-                <img key={image.id} src={URL.createObjectURL(image.processedFile)}/>
+                image?.processedFile ? (
+                  <img key={image.id} src={URL.createObjectURL(image.processedFile)}/>
+                ) : null
               ))}
         </div>
       </main>
