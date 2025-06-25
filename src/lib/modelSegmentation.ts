@@ -41,7 +41,7 @@ export async function initializeModel(): Promise<boolean> {
         }
 
         state.model = await AutoModel.from_pretrained(RMBG_MODEL, {
-            progress_callback: (progress) => {
+            progress_callback: (progress: number) => {
                 console.log(`Loading Model: ${Math.round(Number(progress) * 100)}%`);
             }
         });
