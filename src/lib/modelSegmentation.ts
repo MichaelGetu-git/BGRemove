@@ -1,38 +1,28 @@
-
+import {
+    env,
+    AutoModel,
+    AutoProcessor,
+    RawImage,
+    PreTrainedModel,
+    Processor,
+} from "@huggingface/transformers";
 
 const RMBG_MODEL = "briaai/RMBG-1.4";
 
 interface ModelState {
-    model: any | null;
-    processor: any | null;
-    transformers: any | null;
+    model: PreTrainedModel | null;
+    processor: Processor | null;
 }
 
 const state: ModelState = {
     model: null,
     processor: null,
-    transformers: null,
 }
 
-async function loadTransformers() {
-    if (!state.transformers) {
-        console.log("Loading transformers library...");
-        state.transformers = await import("@huggingface/transformers");
-        console.log("Transformers library loaded!");
-    }
-    return state.transformers;
-}
 
 export async function initializeModel(): Promise<boolean> {
 
     try {
-
-        const {
-            env,
-            AutoModel,
-            AutoProcessor,
-        } = await loadTransformers();
-
         
         env.allowLocalModels = false;
         
@@ -80,7 +70,6 @@ export async function processImage(image: File): Promise<File> {
         throw new Error("Model not Initiated yet, please wait!!");
     }
 
-    const { RawImage } = state.transformers
     const img = await RawImage.fromURL(URL.createObjectURL(image));
 
 

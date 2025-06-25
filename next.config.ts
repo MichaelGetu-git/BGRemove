@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
   },
   serverExternalPackages: ['@huggingface/transformers'],
   
-
+  
 };
 
 export default nextConfig;

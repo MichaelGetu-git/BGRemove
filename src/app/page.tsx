@@ -1,11 +1,10 @@
 "use client"
 
 import { useCallback, useEffect, useState } from "react";
-import { initializeModel, processImage, processImages } from "../lib/modelSegmentation";
 import { useDropzone } from "react-dropzone";
 import Link from "next/link";
 import { Images } from "./Images";
-
+const modelSegmentation = await import("../lib/modelSegmentation");
 interface LoadingError {
   message: string;
 }
@@ -22,12 +21,14 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<LoadingError | null>(null);
   const [images, setImages] = useState<ImageFile[]>([]);
-
+  
+  
   useEffect(() => {
     (async () => {
 
+      const { initializeModel } = await import("../lib/modelSegmentation");
       const initialized = await initializeModel();
-
+   
       if (!initialized) {
         throw new Error("Failed to initialize Model");
       }
@@ -46,6 +47,8 @@ export default function Home() {
     
     for (const image of newImages) {
       try {
+        const { processImages } = await import("../lib/modelSegmentation");
+   
         const result = await processImages([image.file])
   
         if (result && result.length > 0){
