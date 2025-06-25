@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ImageFile } from "./page";
 import { ImageCanvas } from "./ImageCanvas";
+import Image from "next/image";
 
 
 interface ImagesProps {
@@ -53,8 +54,12 @@ function ImageDisplay({image}: ImageDisplayProps) {
               backgroundRepeat: 'repeat'
             }}
           >
-            <img src={processedImageUrl || processedURL} alt="processed image" />
-
+            <Image
+              src = {processedImageUrl || processedURL}
+              alt="example"
+              width={500} 
+              height={300} 
+            />
           </div>
         )}
       </div>

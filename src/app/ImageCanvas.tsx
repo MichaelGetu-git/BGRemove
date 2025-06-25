@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ImageFile } from "./page";
+import Image from 'next/image';
 
 
 interface ImageCanvasProps {
@@ -84,7 +85,12 @@ export function ImageCanvas({image, isOpen, onClose, onSave}: ImageCanvasProps){
                 <div>
                     <h1>first look</h1>
                     <div>
-                        <img src={exportUrl || processedURL} alt="preview" />
+                        <Image
+                            src = {exportUrl || processedURL}
+                            alt="example"
+                            width={500} 
+                            height={300} 
+                        />
                     </div>
                 </div>
             </div>
