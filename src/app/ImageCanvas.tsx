@@ -59,56 +59,59 @@ export function ImageCanvas({image, isOpen, onClose, onSave}: ImageCanvasProps){
     if(!isOpen) return null;
 
     return(
-        <div>
-            <div className="flex justify-between">
-                <h1>Edit Image</h1>
+        <div className="relative flex items-center justify-center ml-40">
+            <div className=" bg-gray-100 mx-30 p-5 grid grid-cols-2">
+            <div className="">
+                <div className="flex justify-between items-center p-4">
+                    <h1 className="font-bold text-xl">First Look</h1>
+                </div>
+                <div>
+                <div>
+                    <div>
+                        <img
+                            src = {exportUrl || processedURL}
+                            alt="example"
+                            width={700} 
+                            height={500} 
+                            className="w-full h-auto rounded-lg object-cover border border-gray-300"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div className="flex items-center justify-center gap-4 p-8">
                 <button
                     onClick={onClose}
+                    className="font-bold text-red-500 border border-gray-400 py-2 px-4 rounded hover:bg-red-500 hover:text-white transition-colors duration-200"
                 >
-                    Close
+                    Cancel
+                </button>
+                <button
+                    onClick={handleSave}
+                    className="font-bold text-white border border-gray-400 py-2 px-4 rounded bg-blue-500 hover:text-white transition-colors duration-200"
+                >
+                    save Changes
                 </button>
             </div>
-            <div>
-                <h1>background</h1>
-                <div>
+            </div>
+            <div className="m-15 p-5 w-50 bg-white rounded-lg shadow-md">
+                <h1 className="font-bold p-2">Background colors</h1>
+                <div className=" grid grid-cols-2 gap-4">
                     {backgroundColors.map(color => (
                         <button
                             key={color}
                             onClick={()=> setBgColor(color)}
-                            className="w-10 h-10 rounded-full border bourder-gray-200"
+                            className="w-15 h-15 rounded-lg border border-gray-200"
                             style={{backgroundColor: color}}
                         />
 
                         
                     ))}
                 </div>
-                <div>
-                    <h1>first look</h1>
-                    <div>
-                        <img
-                            src = {exportUrl || processedURL}
-                            alt="example"
-                            width={500} 
-                            height={300} 
-                        />
-                    </div>
-                </div>
-            </div>
-            <div>
-                <button
-                    onClick={onClose}
-                    className="border border-gray-300"
-                >
-                    Cancel
-                </button>
-                <button
-                    onClick={handleSave}
-                    className="border border-gray-300"
-                >
-                    save Changes
-                </button>
+                
             </div>
             
+            
+        </div>
         </div>
     )
 
