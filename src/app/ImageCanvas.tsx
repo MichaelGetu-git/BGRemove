@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { ImageFile } from "./page";
-import Image from 'next/image';
 
 
 interface ImageCanvasProps {
@@ -21,12 +20,6 @@ export function ImageCanvas({image, isOpen, onClose, onSave}: ImageCanvasProps){
 
 
     const processedURL = image.processedFile ? URL.createObjectURL(image.processedFile) : "";
-
-    useEffect(()=> {
-        if (image.processedFile) {
-            applyChanges();
-        }
-    },[bgColor]);
 
     const applyChanges = async () => {
         if (!image.processedFile) return;
@@ -50,6 +43,13 @@ export function ImageCanvas({image, isOpen, onClose, onSave}: ImageCanvasProps){
         const dataURL = canvas.toDataURL('image/png');
         setExportUrl(dataURL);
     };
+    useEffect(()=> {
+        if (image.processedFile) {
+            applyChanges();
+        }
+    },[bgColor,applyChanges,image.processedFile]);
+
+    
 
     const handleSave = () => {
         onSave(exportUrl);
@@ -85,7 +85,7 @@ export function ImageCanvas({image, isOpen, onClose, onSave}: ImageCanvasProps){
                 <div>
                     <h1>first look</h1>
                     <div>
-                        <Image
+                        <img
                             src = {exportUrl || processedURL}
                             alt="example"
                             width={500} 
