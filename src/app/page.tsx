@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { initializeModel, processImage, processImages } from "../lib/modelSegmentation";
 import { useDropzone } from "react-dropzone";
@@ -64,7 +63,6 @@ export default function Home() {
 
   const {
     getRootProps,
-    getInputProps,
     isDragActive,
     isDragAccept,
     isDragReject,

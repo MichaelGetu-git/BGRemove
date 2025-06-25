@@ -17,7 +17,6 @@ const backgroundColors = [
 export function ImageCanvas({image, isOpen, onClose, onSave}: ImageCanvasProps){
     const [bgColor, setBgColor] = useState("#ffffff");
     const [exportUrl, setExportUrl] = useState('');
-    const [colorPicker, setColorPicker] = useState(false);
 
 
     const processedURL = image.processedFile ? URL.createObjectURL(image.processedFile) : "";
