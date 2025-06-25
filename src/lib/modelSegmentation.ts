@@ -5,7 +5,7 @@ import {
     RawImage,
     PreTrainedModel,
     Processor,
-} from "@xenova/transformers";
+} from "@huggingface/transformers";
 
 const RMBG_MODEL = "briaai/RMBG-1.4";
 
@@ -26,10 +26,10 @@ export async function initializeModel(): Promise<boolean> {
         
         env.allowLocalModels = false;
         
+        env.allowLocalModels = false;
         if (env.backends?.onnx?.wasm) {
             env.backends.onnx.wasm.proxy = true;
         }
-
         state.model = await AutoModel.from_pretrained(RMBG_MODEL, {
             progress_callback: (progress: number) => {
                 console.log(`Loading Model: ${Math.round(Number(progress) * 100)}%`);
