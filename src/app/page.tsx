@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { initializeModel, processImage, processImages } from "../lib/modelSegmentation";
 import { useDropzone } from "react-dropzone";
 import Link from "next/link";
+import { Images } from "./Images";
 
 interface LoadingError {
   message: string;
@@ -85,39 +86,46 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-600 mb-4">
-              <p>Loading background removal model</p>
+            <div className="inline-block animate-spin rounded-full h-10 w-10 border-t-4 border-b-4 border-blue-600 mb-4">
             </div>
-        </div>
+            <p className="font-bold text-xl">Loading background removal model</p>
+            </div>
       </div>
     )
   }
   return (
-    <div className="font-bold">
-      <nav className="bg-white shadow-sm">
+    <div className="">
+      <nav className="bg-white shadow-sm font-bold">
         <div className="flex justify-between py-5 px-10">
           <div>
             <h1 className="text-3xl font-bold text-blue-400">Bg Remover</h1>       
           </div>
           <div className="flex justify-between ">
             <Link href = '/' className="px-3 hover:text-orange-700">Home</Link>
-            <Link href ='/' className="px-3 hover:text-orange-700">About</Link>
+            <Link href ='/about' className="px-3 hover:text-orange-700">About</Link>
           </div>
         </div>
       </nav>
 
       <main className="max-w-7xl mx-auto py-10">
         <div className={images.length===0 ? '' : 'w-full'}>
-          <div
-            {...getRootProps()}
-            className={`p-8 mb-8 border-2 border-dashed rounded-lg text-center cursor-pointer transition-colors duration-300 ease-in-out bg-white
-              ${isDragAccept ? "border-green-500 bg-green-50" : ""}
-              ${isDragReject ? "border-red-500 bg-red-50" : ""}
-              ${isDragActive ? "border-blue-500 bg-blue-50" : "border-gray-300 hover:border-blue-500 hover:bg-blue-50"}
-            `}
-          >
+          <div className="grid grid-cols-2 p-4">
+            <div className="p-10">
+              <img src="images/hero.png" alt="logo image" />
+            </div>
+            <div
+              {...getRootProps()}
+              className={` p-8 mb-8 border-2 border-dashed rounded-lg flex flex-col items-center text-center justify-center cursor-pointer transition-colors duration-300 ease-in-out bg-white h-80 mt-10
+                ${isDragAccept ? "border-green-500 bg-green-50" : ""}
+                ${isDragReject ? "border-red-500 bg-red-50" : ""}
+                ${isDragActive ? "border-blue-500 bg-blue-50" : "border-gray-300 hover:border-blue-500 hover:bg-blue-50"}
+              `}
+            >
+              <img src="images/picsIcon.png" alt="" className="w-20 h-20"/>
+              <h1 className="font-bold text-gray-400 text-xl">Drop your photo on here</h1>
+            </div>
           </div>
           {images.length ===0 && (
             <div>
@@ -127,11 +135,10 @@ export default function Home() {
           <div>
             <h1> Number of Images{images.length}</h1>
           </div>
-              {images && images.map((image)=>(
-                image?.processedFile ? (
-                  <img key={image.id} src={URL.createObjectURL(image.processedFile)}/>
-                ) : null
-              ))}
+            <Images images= {images}/>
+        </div>
+        <div id="/about">
+            This project is developed with the aid of an ai model specifically RMBG 1.4
         </div>
       </main>
     </div>
