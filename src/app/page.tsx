@@ -5,6 +5,7 @@ import { useDropzone } from "react-dropzone";
 import Link from "next/link";
 import { Images } from "./Images";
 const modelSegmentation = await import("../lib/modelSegmentation");
+
 interface LoadingError {
   message: string;
 }
@@ -86,28 +87,25 @@ export default function Home() {
     );
   }
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-10 w-10 border-t-4 border-b-4 border-blue-600 mb-4">
-            </div>
-            <p className="font-bold text-xl">Loading background removal processor</p>
-            </div>
-      </div>
-    )
-  }
+  
   return (
-    <div className="">
+    <div className="reative">
+      {isLoading && (
+      <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center z-50">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-teal-500 p-2"></div>
+        <p className="text-teal-500 text-lg ml-4 font-bold text-xl pt-5">Background removal process loading...</p>
+      </div>
+      )}
+      <div className={`${isLoading ? "blur-sm pointer-events-none opacity-100" : ""}`}>
       <nav className="bg-white shadow-sm font-bold">
         <div className="flex justify-between py-5 px-10">
           <div>
 
-            <h1 className="text-3xl font-bold text-gray-400 pl-10">Bg Remover</h1>       
+            <Link href={"/"} className="text-3xl font-bold text-gray-400 pl-10">Bg Remover</Link>       
           </div>
           <div className="flex justify-between pt-4">
             <Link href = '/' className="px-3 hover:text-orange-700">Home</Link>
-            <Link href ='/about' className="px-3 hover:text-orange-700">About</Link>
+            <Link href ='#about' className="px-3 hover:text-orange-700">About</Link>
           </div>
         </div>
       </nav>
@@ -137,11 +135,19 @@ export default function Home() {
           )}
           <Images images= {images}/>
         </div>
-        <div id="/about" className="ml-20 mt-10">
-          <h1 className="text-3xl font-bold text-gray-500 text-left ">About</h1>
-            This project is developed with the aid of an ai model specifically RMBG 1.4
+        <div id="about" className="mx-auto mt-5 max-w-7xl p-8 rounded-lg shadow-md">
+          <h1 className="text-3xl font-bold text-gray-500 text-left mb-4">About</h1>
+          <p className="text-md text-gray-600 leading-relaxed">
+            This web application is built to offer a seamless and efficient way to remove backgrounds from images using cutting-edge AI technology. At its core, it leverages the 
+            <span className="text-blue-500 font-semibold">RMBG 1.4</span> model — a high-accuracy deep learning model capable of generating high-quality alpha mattes to isolate foreground objects from their backgrounds.
+          </p>
+          <p className="text-md text-gray-600 mt-4 leading-relaxed">
+            Whether you're a designer, photographer, or simply someone looking to clean up a photo for personal use, this tool makes the process easy and accessible. All processing is done locally in the browser using 
+            <span className="text-blue-500 font-semibold">@xenova/transformers</span> running in WebAssembly, ensuring that your images never leave your device. This means your data stays private, secure, and free from third-party storage or cloud processing.
+          </p>
         </div>
       </main>
+    </div>
     </div>
   );
 }
