@@ -63,7 +63,7 @@ export function ImageCanvas({image, isOpen, onClose, onSave}: ImageCanvasProps){
             <div className=" bg-gray-100 mx-30 p-5 grid grid-cols-2">
             <div className="">
                 <div className="flex justify-between items-center p-4">
-                    <h1 className="font-bold text-xl">First Look</h1>
+                    <h1 className="font-bold text-xl">Change your Look</h1>
                 </div>
                 <div>
                 <div>
