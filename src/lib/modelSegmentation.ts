@@ -5,7 +5,7 @@ import {
     RawImage,
     PreTrainedModel,
     Processor,
-} from "@Xenova/transformers";
+} from "@xenova/transformers";
 
 const RMBG_MODEL = "briaai/RMBG-1.4";
 
