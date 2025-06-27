@@ -7,7 +7,14 @@ import {
     Processor,
 } from "@xenova/transformers";
 
-const RMBG_MODEL = "briaai/RMBG-1.4";
+const RMBG_MODEL = "Xenova/modnet";
+
+
+declare global {
+    interface Navigator {
+        gpu?: any;
+    }
+}
 
 interface ModelState {
     model: PreTrainedModel | null;
@@ -19,65 +26,50 @@ const state: ModelState = {
     processor: null,
 }
 
-
 export async function initializeModel(): Promise<boolean> {
-
     try {
-        
-        env.allowLocalModels = false;
-        
-        env.allowLocalModels = false;
-        if (env.backends?.onnx?.wasm) {
-            env.backends.onnx.wasm.proxy = true;
+        if (!navigator.gpu) {
+            throw new Error("WebGPU is not supported in this browser. Please use Chrome/Edge with WebGPU enabled.");
         }
+
+        env.allowLocalModels = false;
+        env.backends.onnx.wasm.proxy = false; 
+
+        console.log("WebGPU available, initializing MODNet model...");
+
         state.model = await AutoModel.from_pretrained(RMBG_MODEL, {
-            progress_callback: (progress: number) => {
-                console.log(`Loading Model: ${Math.round(Number(progress) * 100)}%`);
+            progress_callback: (progress: any) => {
+                if (progress.loaded && progress.total) {
+                    console.log(`Loading Model: ${Math.round(progress.loaded / progress.total * 100)}%`);
+                }
             }
         });
 
-        state.processor = await AutoProcessor.from_pretrained(RMBG_MODEL, {
-            revision: "main",
-            config: {
-                do_normalize: true,
-                do_pad: true,
-                do_rescale: true,
-                do_resize: true,
-                image_mean: [0.5, 0.5, 0.5],
-                feature_extractor_type: "ImageFeatureExtractor",
-                image_std: [0.5,0.5,0.5],
-                resample: 2,
-                rescale_factor: 0.00392156862745098,
-                size: {width: 1024, height: 1024}
-            }
-        });
+        state.processor = await AutoProcessor.from_pretrained(RMBG_MODEL);
 
         if (!state.model || !state.processor) {
-            throw new Error("Failed to initialize the model!!!");
+            throw new Error("Failed to initialize the model!");
         }
 
+        console.log("MODNet model initialized successfully!");
         return true;
     } catch(error) {
         console.error("Error initializing Model:", error);
-
         throw new Error(error instanceof Error ? error.message: "Failed to initialize background removal model!");
     }
 }
 
 export async function processImage(image: File): Promise<File> {
-
     if (!state.model || !state.processor) {
-        throw new Error("Model not Initiated yet, please wait!!");
+        throw new Error("Model not initiated yet, please wait!");
     }
 
     const img = await RawImage.fromURL(URL.createObjectURL(image));
 
-
     try {
-
         const { pixel_values } = await state.processor(img);
 
-        const { output } = await state.model({ input: pixel_values});
+        const { output } = await state.model({ input: pixel_values });
 
         const maskData = (
             await RawImage.fromTensor(output[0].mul(255).to("uint8")).resize(
@@ -86,35 +78,34 @@ export async function processImage(image: File): Promise<File> {
             )
         ).data;
 
-
         const canvas = document.createElement("canvas");
         canvas.width = img.width;
         canvas.height = img.height;
 
         const ctx = canvas.getContext('2d');
-
         if(!ctx) throw new Error("Could not get 2d context");
 
-        ctx.drawImage(img.toCanvas(), 0,0);
+        ctx.drawImage(img.toCanvas(), 0, 0);
 
-        const pix_Data = ctx.getImageData(0,0, img.width, img.height);
-        for (let i=0; i< maskData.length; ++i) {
-            pix_Data.data[4*i + 3] = maskData[i]
+        const pixelData = ctx.getImageData(0, 0, img.width, img.height);
+        for (let i = 0; i < maskData.length; ++i) {
+            pixelData.data[4 * i + 3] = maskData[i];
         }
-        ctx.putImageData(pix_Data, 0, 0)
+        ctx.putImageData(pixelData, 0, 0);
 
         const blob = await new Promise<Blob>((resolve, reject) => {
             canvas.toBlob(
                 (blob) => blob ? resolve(blob) : reject(new Error("Failed to create blob")),
                 "image/png"
-            )
+            );
         });
 
         const [fileName] = image.name.split(".");
-        const processedFile = new File([blob], `${fileName}-bg-converted.png`, {type: "image/png"});
-        return processedFile
-    } catch( error ) {
-        console.error(" Error processing the image:", error);
+        const processedFile = new File([blob], `${fileName}-bg-removed.png`, {type: "image/png"});
+        return processedFile;
+        
+    } catch(error) {
+        console.error("Error processing the image:", error);
         throw new Error("Failed to process the image");
     }
 }
@@ -132,4 +123,20 @@ export async function processImages(images: File[]): Promise<File[]> {
     }
     console.log("Processing images done");
     return processedFiles;
+}
+
+export function isWebGPUSupported(): boolean {
+    return !!navigator.gpu;
+}
+
+export async function initializeModelFallback(): Promise<boolean> {
+    try {
+        console.log("WebGPU not available, trying fallback model...");
+        
+        throw new Error("This application requires WebGPU support. Please enable WebGPU in your browser or use Chrome/Edge with WebGPU flags enabled.");
+        
+    } catch(error) {
+        console.error("Error initializing fallback model:", error);
+        throw error;
+    }
 }

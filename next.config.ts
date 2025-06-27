@@ -5,10 +5,8 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   
-  // Only use webpack config when not using Turbopack
   ...(!process.env.TURBOPACK && {
     webpack: (config, { isServer }) => {
-      // Handle @xenova/transformers for client-side usage
       if (!isServer) {
         config.resolve.fallback = {
           ...config.resolve.fallback,
@@ -17,8 +15,6 @@ const nextConfig: NextConfig = {
           os: false,
         };
       }
-      
-      // Externalize for server-side to prevent server-side bundling issues
       if (isServer) {
         config.externals = config.externals || [];
         config.externals.push('@xenova/transformers');
@@ -28,10 +24,8 @@ const nextConfig: NextConfig = {
     },
   }),
   
-  // Server external packages (works with both webpack and Turbopack)
   serverExternalPackages: ['@xenova/transformers'],
   
-  // Environment variables for transformers
   env: {
     TRANSFORMERS_CACHE: './.cache/transformers',
   },

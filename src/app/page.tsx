@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import Link from "next/link";
-import { Images } from "./Images";
+import { Images } from "./components/Images";
+import Image from "next/image";
 const modelSegmentation = await import("../lib/modelSegmentation");
 
 interface LoadingError {
@@ -87,6 +88,9 @@ export default function Home() {
     );
   }
 
+  const handleChange =() => {
+    setImages([]);
+  }
   
   return (
     <div className="reative">
@@ -101,11 +105,14 @@ export default function Home() {
         <div className="flex justify-between py-5 px-10">
           <div>
 
-            <Link href={"/"} className="text-3xl font-bold text-gray-400 pl-10">Bg Remover</Link>       
-          </div>
-          <div className="flex justify-between pt-4">
-            <Link href = '/' className="px-3 hover:text-orange-700">Home</Link>
-            <Link href ='#about' className="px-3 hover:text-orange-700">About</Link>
+            <button  
+              onClick={handleChange}
+              className="flex text-3xl font-semibold text-gray-600 pl-10 cursor:pointer"
+              >
+                
+                <Image src="/images/myLogo.png" width={35} height={35} alt="logo"/>
+                <h1 className="pl-2">BGClean</h1>
+            </button>       
           </div>
         </div>
       </nav>
