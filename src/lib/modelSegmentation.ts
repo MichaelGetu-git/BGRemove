@@ -9,6 +9,13 @@ import {
 
 const RMBG_MODEL = "Xenova/modnet";
 
+
+declare global {
+    interface Navigator {
+        gpu?: any;
+    }
+}
+
 interface ModelState {
     model: PreTrainedModel | null;
     processor: Processor | null;
