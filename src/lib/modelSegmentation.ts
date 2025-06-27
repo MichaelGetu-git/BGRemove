@@ -38,7 +38,6 @@ export async function initializeModel(): Promise<boolean> {
         console.log("WebGPU available, initializing MODNet model...");
 
         state.model = await AutoModel.from_pretrained(RMBG_MODEL, {
-            device: "webgpu",
             progress_callback: (progress: any) => {
                 if (progress.loaded && progress.total) {
                     console.log(`Loading Model: ${Math.round(progress.loaded / progress.total * 100)}%`);
