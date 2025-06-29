@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Images } from "./components/Images";
 import Image from "next/image";
 import { button, div } from "framer-motion/client";
+import Footer from "./components/Footer";
 const modelSegmentation = await import("../lib/modelSegmentation");
 
 interface LoadingError {
@@ -107,8 +108,8 @@ export default function Home() {
       )}
       <div className={`transition-all duration-300 ${isLoading ? "blur-sm pointer-events-none opacity-100" : ""}`}>
       <header className="flex justify-between shadow-sm p-3 bg-white flex items-center justify-between px-15">
-          <div className="text-purple-500 bg-gradient-to-r from-gray-50 to-gray-100 hover:bg-gray-100  p-3 rounded-full border border-gray-100 transition-colors">
-            <button className="flex items-center gap-2"
+          <div className="text-purple-500 transition-colors">
+            <button className="flex items-center gap-2 cursor-pointer"
               onClick={handleReset}
             >
               <div>
@@ -150,6 +151,7 @@ export default function Home() {
       {images.length===0 && (
             <div>
               {/* Add Placement */}
+              {/*
               <div className="mb-6">
                 <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-gray-200">
                   <div className="text-center">
@@ -160,35 +162,26 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            <div className={`grid grid-cols-2 gap-15 items-center mb-20`}>
-            <div className="space-y-8 flex flex-col items-center justify-center">
-              <div className="rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-r from-blue-100 to-purple-100 p-2 mb-4">
+              */}
+            <div className={`grid grid-cols-2 gap-12 items-start mb-20`}>
+            <div className="flex flex-col items-center pl-25 pt-0">
+              <div className="rounded-2xl overflow-hidden  bg-gradient-to-r from-blue-100 to-purple-100 p-1/2 mb-4">
                 <video 
-                  src="/images/hero2.mp4"
+                  src="/images/hero.mp4"
                   autoPlay
-                  loop
                   muted
                   playsInline
                   className="w-full h-auto rounded-2xl"
                 />              
               </div>
-              <div className="space-y-4">
-                <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-800 leading-tight">Remove Image 
-                <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Backgrounds</span></h1>
+              <div className="">
+                <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-800 leading-tight">Remove Image
+                <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent"> Backgrounds</span></h1>
                 <span className="text-xl text-gray-600 font-medium">100% Free and private</span>
               </div>
             </div>
-            <div className="space-y-6">
-              {/* Side Add Placement */}
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-gray-200">
-                <div className="text-center">
-                  <p className="text-xs text-gray-500 mb-2 uppercase tracking-wide">Sponsered</p>
-                  <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-4 min-h-[200px] items-center justify-center">
-                    <span className="text-sm text-gray-400">Banner Ad Space</span>
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center justify-center">
+            <div className="space-y-4 pt-25">
+              <div className="flex flex-col items-center justify-center pb-10">
                 <div
                   {...getRootProps()}
                   className={`
@@ -210,7 +203,7 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-4">
                         <h3 className="text-xl font-semibold text-gray-800">
                           <span className="text-blue-500">Drop</span> or{" "}
                           <span className="text-blue-500">Select</span> Photos
@@ -218,6 +211,15 @@ export default function Home() {
                         <p className="text-sm text-gray-500">
                           Supports JPG, PNG, WebP
                         </p>
+                  </div>
+                </div>
+              </div>
+              {/* Side Add Placement */}
+              <div className="pt-10 bg-white/80 backdrop-blur-sm rounded-2xl p-7 shadow-sm border border-gray-200">
+                <div className="text-center">
+                  <p className="text-xs text-gray-500 mb-2 uppercase tracking-wide">Sponsered</p>
+                  <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-4 min-h-[200px] items-center justify-center">
+                    <span className="text-sm text-gray-400">Banner Ad Space</span>
                   </div>
                 </div>
               </div>
@@ -234,6 +236,18 @@ export default function Home() {
             </div>
           </div>
           <Images images= {images}/>
+        {images.length===0 && (
+          <div className="mb-6">
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-gray-200">
+                  <div className="text-center">
+                      <p className="text-xs text-gray-500 mb-2 uppercase tracking-wide">Sponsered</p>
+                  <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-4 min-h-[90px] items-center justify-center">
+                    <span className="text-sm text-gray-400">Banner Ad Space</span>
+                  </div>
+                </div>
+              </div>
+          </div>
+        )}
         {images.length > 0 && (
           <div className="mt-16 mb-8">
           <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 border border-gray-200 shadow-sm">
@@ -251,6 +265,7 @@ export default function Home() {
         </div>
         )}
       </main>
+      <Footer/>
     </div>
     </div>
   );
