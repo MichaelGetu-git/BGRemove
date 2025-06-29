@@ -163,7 +163,7 @@ export default function Home() {
                 </div>
               </div>
               */}
-            <div className={`grid grid-cols-2 gap-12 items-start mb-20`}>
+            <div className={`grid grid-cols-2 gap-4 items-start mb-20`}>
             <div className="flex flex-col items-center pl-25 pt-0">
               <div className="rounded-2xl overflow-hidden  bg-gradient-to-r from-blue-100 to-purple-100 p-1/2 mb-4">
                 <video 
@@ -180,7 +180,8 @@ export default function Home() {
                 <span className="text-xl text-gray-600 font-medium">100% Free and private</span>
               </div>
             </div>
-            <div className="space-y-4 pt-25">
+            <div className="space-y-4 pt-15">
+              <div className='h-5'></div>
               <div className="flex flex-col items-center justify-center pb-10">
                 <div
                   {...getRootProps()}

@@ -22,6 +22,7 @@ export function ImageCanvas({image}: ImageCanvasProps){
     const [bgColor, setBgColor] = useState("");
     const [exportUrl, setExportUrl] = useState('');
     const [processedImageUrl, setProcessedImageUrl] = useState("");
+    const [zoom, setZoom] = useState(1);
 
     const url = URL.createObjectURL(image.file);
     const processedURL = image.processedFile ? URL.createObjectURL(image.processedFile) : "";
@@ -66,83 +67,99 @@ export function ImageCanvas({image}: ImageCanvasProps){
     }
 
     return(
-        <div className="relative flex items-center justify-center ml-40">
-            <div className=" bg-gray/40 mx-30 p-5 grid grid-cols-2">
+        <div className="relative flex items-center justify-center">
+            <div className="pl-40 bg-gray/40 grid grid-cols-2 gap-10">
             <div className="">
-                <div className="flex justify-between items-center p-4">
-                    <h1 className="font-bold text-xl">Change your Look</h1>
+                <div className=" flex justify-between items-center">
+                    <h1 className="font-bold text-xl">Preview</h1>
+                    {isProcessing && (
+                    <div>
+                        <span className='font-bold text-purple-400'>processing...</span>
+                    </div>
+                    )}
                 </div>
-                <AnimatePresence mode="wait">
-                    {isProcessing ? (
-                        <motion.div
-                            key={"processing"}
-                            initial={{opacity:0}}
-                            animate = {{opacity:1}}
-                            exit = {{opacity: 0}}
-                            transition={{duration: 0.5}}
-                            className="relative"
-                        >
-                             <img
-                                className="rounded-lg object-cover border border-gray-300"
-                                src={url} 
-                                alt="processing image"
-                                width={650} 
-                                height={450}
-                            />
-                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                <motion.div
-                                    className="w-15 h-15 border-4 border-blue-500 border-t-transparent rounded-full"
-                                    animate = {{rotate: 360}}
-                                    transition={{repeat: Infinity, duration: 1, ease: "linear"}}
-                                />
-
-                            </div>
-                        </motion.div>
-                    ) : (
-                        <motion.div
-                            key={"processed"}
-                            initial={{opacity: 0, scale: 0.95}}
-                            animate = {{opacity: 1, scale: 1}}
-                            exit = {{opacity: 0, scale: 0.95}}
-                            transition={{duration: 0.5}}
-
-                        >
-                            <div
-                              style={{
-                                background: !bgColor ? transparentBg: 'none',
-                                backgroundRepeat: 'repeat'
-                                }}                          
+                <div className="flex items-center justify-center">
+                <div className="relative max-w-[450px] max-h-[550px] w-fit h-full bg-gray-100 rounded-3xl overflow-hidden">
+                    <AnimatePresence mode="wait">
+                        {isProcessing ? (
+                            <motion.div
+                                key={"processing"}
+                                initial={{opacity:0}}
+                                animate = {{opacity:1}}
+                                exit = {{opacity: 0}}
+                                transition={{duration: 0.5}}
+                                className="relative w-full h-full"
                             >
                                 <img
-                                    src = {!bgColor ? processedURL : exportUrl}
-                                    alt="example"
-                                    width={650} 
-                                    height={450} 
-                                    className="rounded-lg object-cover border border-gray-300"
+                                    className="w-auto h-auto max-w-full max-h-full object-contain"
+                                    src={url} 
+                                    alt="processing image"
+                                    style={{transform: `scale(${zoom})`,transformOrigin: "center"}}
                                 />
-                            </div>
-                            
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-                <div className="flex items-center justify-center gap-4 p-8">
-                <Link
-                    href={'/'}
-                    className="font-bold text-red-500 border border-gray-400 py-2 px-4 rounded hover:bg-red-500 hover:text-white transition-colors duration-200"
-                    
-                >
-                    Cancel
-                </Link>
+                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                    <motion.div
+                                        className="w-25 h-25 border-4 border-blue-500 border-t-transparent rounded-full"
+                                        animate = {{rotate: 360}}
+                                        transition={{repeat: Infinity, duration: 1, ease: "linear"}}
+                                    />
+
+                                </div>
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                key={"processed"}
+                                initial={{opacity: 0, scale: 0.95}}
+                                animate = {{opacity: 1, scale: 1}}
+                                exit = {{opacity: 0, scale: 0.95}}
+                                transition={{duration: 0.5}}
+                                className="relative w-full h-full"
+
+                            >
+                                <div
+                                    className="w-full h-full flex items-center justify-center"
+                                    style={{
+                                        background: !bgColor ? transparentBg: 'none',
+                                        backgroundRepeat: 'repeat'
+                                        }}                          
+                                >
+                                    <img
+                                        src = {!bgColor ? processedURL : exportUrl}
+                                        alt="example"
+                                        className="w-auto h-auto max-w-full max-h-full object-contain rounded-lg shadow-sm"
+                                        style = {{transform:  `scale(${zoom})`, transformOrigin: "center"}}
+                                    />
+                                </div>
+                                
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </div>
+            <div className="flex items-start justify-between p-5">
+                <div className="flex items-center gap-4">
+                    <button 
+                        className='font-bold text-2xl hover:text-red-500 cursor-pointer'
+                        onClick={()=> setZoom(z=> Math.max(z-0.1,1))}
+                    >
+                            -
+                    </button>
+                    <button 
+                        className='font-bold text-2xl hover:text-red-500 cursor-pointer'
+                        onClick={()=>setZoom(z=>Math.min(z+0.1,3))}
+                    >
+                        +
+                    </button>
+                </div>
                 <Link
                     href={!bgColor ? processedURL : exportUrl}
                     download={`processed-${image.id}.png`}
-                    className="font-bold text-white border border-gray-400 py-2 px-4 rounded bg-blue-500 hover:text-white transition-colors duration-200"
+                    className="font-bold text-white border border-gray-400 rounded-3xl py-2 px-5 bg-blue-500 hover:text-white transition-colors duration-200"
                 >
                     Download
                 </Link>
             </div>
             </div>
-            <div className="m-15 p-5 w-50 bg-white rounded-lg shadow-md">
+            <div className="flex flex-col items-center justify-center p-5 w-50 bg-white rounded-lg shadow-md border">
                 <h1 className="font-bold p-2">Background colors</h1>
                 <div className=" grid grid-cols-2 gap-4">
                     {backgroundColors.map((color, index) => (
