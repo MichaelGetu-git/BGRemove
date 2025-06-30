@@ -106,7 +106,7 @@ export default function Home() {
         <p className="text-teal-500 text-lg ml-4 font-bold text-xl pt-5">Background removal process loading...</p>
       </div>
       )}
-      <div className={`transition-all duration-300 ${isLoading ? "blur-sm pointer-events-none opacity-100" : ""}`}>
+      <div className={`transition-all duration-300 ${isLoading ? "blur-sm pointer-events-none opacity-100" : "bg-gray-100"}`}>
       <header className="flex justify-between shadow-sm p-3 bg-white flex items-center justify-between px-15">
           <div className="text-purple-500 transition-colors">
             <button className="flex items-center gap-2 cursor-pointer"
