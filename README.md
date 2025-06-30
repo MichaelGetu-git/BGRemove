@@ -27,9 +27,9 @@ An intelligent web-based image background removal tool built with **Next.js**, p
   </thead>
   <tbody>
     <tr>
-      <td><img src="/public/images/upload.jpg" width="300" /></td>
-      <td><img src="/public/images/processed.png" width="300" /></td>
-      <td><img src="/public/images/result.png" width="300" /></td>
+      <td><img src="https://drive.google.com/file/d/1FlayHofF2EwdS70Zlc7OlJm_63uyW7dP/view?usp=sharing" width="320" /></td>
+      <td><img src="https://drive.google.com/file/d/1FlayHofF2EwdS70Zlc7OlJm_63uyW7dP/view?usp=sharing" width="320" /></td>
+      <td><img src="https://drive.google.com/file/d/1dOlo7oGUnxwhorFoxTM11dIPT-lC71qL/view?usp=drive_link" width="320" /></td>
     </tr>
   </tbody>
 </table>
@@ -47,6 +47,6 @@ An intelligent web-based image background removal tool built with **Next.js**, p
 
 ## Work Breakdown
 
-<img src="/public/images/workbreakdown.png" width="400" />
+<img src="/public/images/workbreakdown.png" width="600" />
 
 _A preview of the background removal process._
