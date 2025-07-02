@@ -106,10 +106,10 @@ export default function Home() {
         <p className="text-teal-500 text-lg ml-4 font-bold text-xl pt-5">Background removal process loading...</p>
       </div>
       )}
-      <div className={`transition-all duration-300 ${isLoading ? "blur-sm pointer-events-none opacity-100" : "bg-gray-100"}`}>
-      <header className="flex justify-between shadow-sm p-3 bg-white flex items-center justify-between px-15">
+      <div className={`transition-all duration-300 ${isLoading ? "blur-sm pointer-events-none opacity-100" : "bg-white sm:bg-gray-50"}`}>
+      <header className="flex justify-between shadow-sm p-3 bg-white flex items-center justify-between px-4 sm:px-6 lg:px-15">
           <div className="text-purple-500 transition-colors">
-            <button className="flex items-center gap-2 cursor-pointer"
+            <button className="flex flex-wrap items-center gap-2 cursor-pointer"
               onClick={handleReset}
             >
               <div>
@@ -163,8 +163,8 @@ export default function Home() {
                 </div>
               </div>
               */}
-            <div className={`grid grid-cols-2 gap-4 items-start mb-20`}>
-            <div className="flex flex-col items-center pl-25 pt-0">
+            <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 items-start sm:mb-20`}>
+            <div className="flex flex-col items-center lg:pl-25 pt-0">
               <div className="rounded-2xl overflow-hidden  bg-gradient-to-r from-blue-100 to-purple-100 p-1/2 mb-4">
                 <video 
                   src="/images/hero.mp4"
@@ -174,13 +174,13 @@ export default function Home() {
                   className="w-full h-auto rounded-2xl"
                 />              
               </div>
-              <div className="">
-                <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-800 leading-tight">Remove Image
+              <div className="text-center sm:text-left sm:flex sm:flex-col">
+                <h1 className="text-4xl lg:text-6xl sm-text-4xl font-extrabold text-gray-800 leading-tight">Remove Image
                 <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent"> Backgrounds</span></h1>
-                <span className="text-xl text-gray-600 font-medium">100% Free and private</span>
+                <span className="lg:text-xl sm:text-md text-gray-600 font-medium">100% Free and private</span>
               </div>
             </div>
-            <div className="space-y-4 pt-15">
+            <div className="space-y-4 lg:pt-15 w-full px-4 sm:px-8">
               <div className='h-5'></div>
               <div className="flex flex-col items-center justify-center pb-10">
                 <div
@@ -216,7 +216,7 @@ export default function Home() {
                 </div>
               </div>
               {/* Side Add Placement */}
-              <div className="pt-10 bg-white/80 backdrop-blur-sm rounded-2xl p-7 shadow-sm border border-gray-200">
+              <div className="pt-10 bg-white/80 backdrop-blur-sm rounded-2xl p-7 shadow-sm border border-gray-200 hidden md:block">
                 <div className="text-center">
                   <p className="text-xs text-gray-500 mb-2 uppercase tracking-wide">Sponsered</p>
                   <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-4 min-h-[200px] items-center justify-center">
@@ -238,7 +238,7 @@ export default function Home() {
           </div>
           <Images images= {images}/>
         {images.length===0 && (
-          <div className="mb-6">
+          <div className="sm:mb-6">
                 <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-gray-200">
                   <div className="text-center">
                       <p className="text-xs text-gray-500 mb-2 uppercase tracking-wide">Sponsered</p>
