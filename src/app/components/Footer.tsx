@@ -20,7 +20,7 @@ const Footer = () => {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-xl font-bold text-gray-800">BGClean</span>
+                <span className="text-xl font-bold text-gray-800 text-purple-500">BGClean</span>
                 <span className="text-xs text-gray-500 font-medium">Background Remover</span>
               </div>
             </div>
@@ -47,25 +47,28 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Features */}
-          <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-gray-800 uppercase tracking-wide">Features</h3>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-gray-600 hover:text-blue-500 transition-colors">AI Background Removal</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-blue-500 transition-colors">High Quality Output</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-blue-500 transition-colors">Privacy First</a></li>
-            </ul>
-          </div>
+          <div className='space-y-5 sm:space-y-0 sm:flex sm:justify-between'>
+            
+            {/* Features */}
+            <div className="space-y-4">
+              <h3 className="text-sm font-semibold text-gray-800 uppercase tracking-wide">Features</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-sm text-gray-600 hover:text-blue-500 transition-colors">AI Background Removal</a></li>
+                <li><a href="#" className="text-sm text-gray-600 hover:text-blue-500 transition-colors">High Quality Output</a></li>
+                <li><a href="#" className="text-sm text-gray-600 hover:text-blue-500 transition-colors">Privacy First</a></li>
+              </ul>
+            </div>
 
-          {/* Support */}
-          <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-gray-800 uppercase tracking-wide">Support</h3>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-gray-600 hover:text-blue-500 transition-colors">Help Center</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-blue-500 transition-colors">FAQ</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-blue-500 transition-colors">Contact Us</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-blue-500 transition-colors">Feature Request</a></li>
-            </ul>
+            {/* Support */}
+            <div className="space-y-4">
+              <h3 className="text-sm font-semibold text-gray-800 uppercase tracking-wide">Support</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-sm text-gray-600 hover:text-blue-500 transition-colors">Help Center</a></li>
+                <li><a href="#" className="text-sm text-gray-600 hover:text-blue-500 transition-colors">FAQ</a></li>
+                <li><a href="#" className="text-sm text-gray-600 hover:text-blue-500 transition-colors">Contact Us</a></li>
+                <li><a href="#" className="text-sm text-gray-600 hover:text-blue-500 transition-colors">Feature Request</a></li>
+              </ul>
+            </div>
           </div>
         </div>
 
