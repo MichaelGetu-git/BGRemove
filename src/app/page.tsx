@@ -123,7 +123,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex flex-col items-start ml-2">
-                <span className="text-2xl font-bold ">BGClean</span>
+                <span className="text-md lg:text-2xl font-bold ">BGClean</span>
                 <span className="text-xs text-gray-500 font-medium">Background Remover</span>
               </div>
               
@@ -133,7 +133,7 @@ export default function Home() {
             {images.length > 0 && (
               <button
                 onClick={handleReset}
-                className="flex px-6 py-2 text-sm font medium text-gray-600 hover:text-gray-900 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 hover:border-gray-400"
+                className="flex px-5 py-2 text-sm font medium text-gray-600 hover:text-gray-900 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 hover:border-gray-400"
               >
                 <span className="flex items-center space-x-2">
                   <svg className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -147,7 +147,7 @@ export default function Home() {
       </header>
 
 
-      <main className="max-w-7xl mx-auto px-6 py-12">
+      <main className="max-w-7xl mx-auto lg:py-12 sm:py-5">
       {images.length===0 && (
             <div>
               {/* Add Placement */}

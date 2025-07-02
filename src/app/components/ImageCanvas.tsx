@@ -218,26 +218,28 @@ export function ImageCanvas({image}: ImageCanvasProps){
             </div>
             { !imgCanvasOpen ? (
             <div className="lg:pt-40 px-4 sm:p-6 lg:w-64 border-t lg:border-t-0 lg:border-l lg:border-r border-gray-200">
-                <div className="flex flex-row justify-center gap-4 lg:flex-col gap-4 lg:justify-center lg:space-y-4 lg:gap-0">
-                    <button 
-                        className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-purple-50 transition-colors group"
-                        onClick={handleOpen}
-                        >
-                        <div className="w-12 h-12 flex items-center justify-center rounded-full border border-gray-300 bg-gray-50 group-hover:bg-purple-100 transition">
-                            <span className="text-2xl font-bold text-gray-600 group-hover:text-purple-600">+</span>
-                        </div>
-                        <p className="text-base font-medium text-gray-800 group-hover:text-purple-600 transition">Background</p>
-                    </button>
-                    <button 
-                        className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-purple-50 transition-colors group"
-                        onClick={handleOpen}
-                        >
-                        <div className=" w-12 h-12 flex items-center justify-center rounded-full border border-gray-300 bg-gray-50 group-hover:bg-purple-100 transition">
-                            <span className="text-xl font-semibold text-gray-600 group-hover:text-purple-600"><span className="text-sm">f</span>X</span>
-                        </div>
-                        <p className="text-base font-medium text-gray-800 group-hover:text-purple-600 transition">Effects</p>
-                    </button>
-                </div>
+            <div className="flex flex-row justify-center gap-4 lg:flex-col gap-4 lg:justify-center lg:space-y-4 lg:gap-0 py-3">
+                <button 
+                    className="flex flex-col sm:flex-row items-center gap-1 sm:gap-3 sm:p-3 rounded-xl hover:bg-purple-50 active:bg-purple-100 active:scale-95 transition-all duration-150 group"
+                    onClick={handleOpen}
+                >
+                    <div className="w-6 h-6 sm:w-10 sm:h-10 lg:w-12 lg:h-12 flex items-center justify-center rounded-full border border-gray-300 bg-gray-50 group-hover:bg-purple-100 group-active:bg-purple-200 transition-colors">
+                        <span className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-600 group-hover:text-purple-600 group-active:text-purple-700">+</span>
+                    </div>
+                    <p className="text-xs sm:text-sm lg:text-base font-medium text-gray-800 group-hover:text-purple-600 group-active:text-purple-700 transition-colors text-center sm:text-left">Background</p>
+                </button>
+                <button 
+                    className="flex flex-col sm:flex-row items-center gap-1 sm:gap-3 sm:p-3 rounded-xl hover:bg-purple-50 active:bg-purple-100 active:scale-95 transition-all duration-150 group"
+                    onClick={handleOpen}
+                >
+                    <div className="w-6 h-6 sm:w-10 sm:h-10 lg:w-12 lg:h-12 flex items-center justify-center rounded-full border border-gray-300 bg-gray-50 group-hover:bg-purple-100 group-active:bg-purple-200 transition-colors">
+                        <span className="text-sm sm:text-base lg:text-lg font-bold text-gray-600 group-hover:text-purple-600 group-active:text-purple-700 italic tracking-tight">
+                        f<span className="text-xs sm:text-sm lg:text-base relative -top-0.5">x</span>
+                        </span>
+                    </div>
+                    <p className="text-xs sm:text-sm lg:text-base font-medium text-gray-800 group-hover:text-purple-600 group-active:text-purple-700 transition-colors text-center sm:text-left">Effects</p>
+                </button>
+            </div>
             </div>
             ) : (
                 <div className="lg:pt-20 p-4 sm:p-6 lg:w-80 border-t lg:border-t-0 lg:border-l lg:border-r border-gray-200 bg-white">
